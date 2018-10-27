@@ -1,25 +1,17 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import {
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
-// import { BottomTabBar } from "react-navigation-tabs";
-import { RecentChatsScreen, SingleChatScreen, ProfileScreen } from "../screens";
-import { BottomTabBar } from "../components";
 
-// const TabBarComponent = props => (
-//   <View>
-//     <TabBarComponent {...props} />
-//     <View
-//       style={{
-//         ...StyleSheet.absoluteFillObject,
-//         backgroundColor: "rgba(255,0,0,0.5)"
-//       }}
-//     />
-//   </View>
-// );
+import {
+  RecentChatsScreen,
+  SingleChatScreen,
+  ProfileScreen,
+  LoadingChatScreen
+} from "../screens";
+import { BottomTabBar } from "../components";
 
 const RootNavigator = createBottomTabNavigator(
   {
@@ -62,4 +54,15 @@ const RootNavigator = createBottomTabNavigator(
   }
 );
 
-export default RootNavigator;
+const ModalOverTabNavigator = createStackNavigator({
+  RootNavigator: {
+    screen: RootNavigator,
+    navigationOptions: { header: null }
+  },
+  LoadingChatScreen: {
+    screen: LoadingChatScreen,
+    navigationOptions: { header: null, mode: "modal" }
+  }
+});
+
+export default ModalOverTabNavigator;
